@@ -16,6 +16,7 @@ parts:
     plugin: dump
     build-packages:
       - unzip
+      - curl
     source: https://github.com/denoland/deno_install.git
     override-build: |
       export DENO_INSTALL=$SNAPCRAFT_PART_BUILD
