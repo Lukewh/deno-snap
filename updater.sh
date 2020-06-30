@@ -19,7 +19,7 @@ echo "$latest_version"
 
 if [ "$current_version" != "$latest_version" ]; then
     echo "Update to $latest_version"
-    sed 's/\$version/'${latest_version}'/g' _snapcraft.yaml > snapcraft.yaml
+    sed 's/\$version/'${latest_version}'/g' "$BASE_DIR/_snapcraft.yaml" > "$BASE_DIR/snapcraft.yaml"
     echo "Updated"
 
     git commit -a -m "Update to $latest_version"
