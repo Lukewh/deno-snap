@@ -4,6 +4,8 @@ json=$(curl --silent "https://api.github.com/repos/denoland/deno/releases/latest
 
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+. "$BASE_DIR/.env"
+
 cd "$BASE_DIR"
 
 git pull origin master
@@ -27,5 +29,7 @@ if [ "$current_version" != "$latest_version" ]; then
     git push origin master
 
     echo "$latest_version"> "current_version"
+
+    curl -d '{"snapName":"deno","version":"$latest_version"}' -H "Content-Type: application/json" -X POST "$URL"
 fi
 
