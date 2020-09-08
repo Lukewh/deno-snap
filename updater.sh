@@ -4,7 +4,9 @@ json=$(curl --silent "https://api.github.com/repos/denoland/deno/releases/latest
 
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-. "$BASE_DIR/.env"
+if [ -f "$BASE_DIR/.env" ]; then
+    . "$BASE_DIR/.env"
+fi
 
 cd "$BASE_DIR"
 
