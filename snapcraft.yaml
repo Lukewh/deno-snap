@@ -4,7 +4,7 @@ summary: Deno
 description: |
   Deno
 
-base: core18
+base: core
 grade: stable
 confinement: strict
 
