@@ -27,6 +27,9 @@ parts:
 
 apps:
   deno:
+    environment:
+      HOME: "/home/$USER"
+      XDG_CACHE_HOME: "$SNAP_USER_DATA/.cache"
     command: bin/deno
     plugs:
       - network
