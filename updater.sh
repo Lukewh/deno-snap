@@ -10,13 +10,8 @@ fi
 
 cd "$BASE_DIR"
 
-git pull origin master
-
-current_version=""
-
-if [ -f "current_version" ]; then
-    current_version=$(cat "current_version")
-fi
+current_version=$(curl -H "Snap-Device-Series: 16" --silent "https://api.snapcraft.io/v2/snaps/info/deno")
+current_version=$(echo "$current_version" | jq '.["channel-map"][0].version')
 
 latest_version=$(echo "$json" | jq -r 'if .prerelease == false then .tag_name else null end')
 
