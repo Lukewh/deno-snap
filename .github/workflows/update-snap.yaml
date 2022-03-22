@@ -1,0 +1,26 @@
+name: Update release
+on:
+  workflow_dispatch:
+  schedule:
+    - chron: '0 10 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install deps
+        run: sudo apt update && sudo apt install -y curl jq
+
+      - name: Create snapcraft.yaml
+        run: ./updater.sh
+
+      - uses: snapcore/action-build@v1
+        id: build
+
+      - uses: snapcore/action-publish@v1
+        with:
+          store_login: ${{ secrets.STORE_LOGIN }}
+          snap: ${{ steps.build.outputs.snap }}
+          release: stable
