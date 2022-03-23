@@ -24,5 +24,6 @@ if [ "$current_version" != "$latest_version" ]; then
     echo "Updated"
 else
     echo "Nothing to update"
+    exit 1
 fi
 
