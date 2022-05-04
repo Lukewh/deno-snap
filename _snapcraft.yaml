@@ -24,10 +24,11 @@ parts:
 
     organize:
       $SNAPCRAFT_PART_BUILD/bin/deno: bin/deno
+      $SNAPCRAFT_PART_SRC/wrapper.sh: bin/wrapper.sh
 
 apps:
   deno:
-    command: bin/deno
+    command: bin/wrapper.sh
     plugs:
       - network
       - network-bind
