@@ -21,10 +21,11 @@ parts:
     override-build: |
       export DENO_INSTALL=$SNAPCRAFT_PART_BUILD
       ./install.sh
+      cp $SNAPCRAFT_PROJECT_DIR/wrapper.sh .
 
     organize:
       $SNAPCRAFT_PART_BUILD/bin/deno: bin/deno
-      $SNAPCRAFT_PART_SRC/wrapper.sh: bin/wrapper.sh
+      $SNAPCRAFT_PART_BUILD/wrapper.sh: bin/wrapper.sh
 
 apps:
   deno:
