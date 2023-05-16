@@ -9,9 +9,10 @@ grade: stable
 confinement: strict
 
 architectures:
-  - build-on:
-      - amd64
-      - armhf
+  - build-on: amd64
+    build-for: amd64
+  - build-on: armhf
+    build-for: armhf    
 
 parts:
   deno:
