@@ -28,6 +28,9 @@ parts:
       cp $SNAPCRAFT_PART_BUILD/bin/deno $SNAPCRAFT_PART_INSTALL/deno
 apps:
   deno:
+    environment:
+      HOME: "$SNAP_REAL_HOME"
+      XDG_CACHE_HOME: "$SNAP_USER_DATA/.cache"
     command: wrapper.sh
     plugs:
       - network
