@@ -12,7 +12,7 @@ architectures:
   - build-on: amd64
     build-for: amd64
   - build-on: armhf
-    build-for: armhf    
+    build-for: armhf
 
 parts:
   deno:
@@ -24,15 +24,11 @@ parts:
     override-build: |
       export DENO_INSTALL=$SNAPCRAFT_PART_BUILD
       ./install.sh
-      cp $SNAPCRAFT_PROJECT_DIR/wrapper.sh .
-
-    organize:
-      $SNAPCRAFT_PART_BUILD/bin/deno: bin/deno
-      $SNAPCRAFT_PART_BUILD/wrapper.sh: bin/wrapper.sh
-
+      cp $SNAPCRAFT_PROJECT_DIR/wrapper.sh $SNAPCRAFT_PART_INSTALL/wrapper.sh
+      cp $SNAPCRAFT_PART_BUILD/bin/deno $SNAPCRAFT_PART_INSTALL/deno
 apps:
   deno:
-    command: bin/wrapper.sh
+    command: wrapper.sh
     plugs:
       - network
       - network-bind

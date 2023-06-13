@@ -12,4 +12,4 @@ if [ "${CMD}" == "upgrade" ]; then
     exit 1
 fi
 
-$SNAP/bin/deno "${@}"
+$SNAP/deno "${@}"
