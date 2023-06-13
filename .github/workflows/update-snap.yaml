@@ -21,13 +21,14 @@ jobs:
 
       - name: Build snap
         if: steps.check_files.outputs.files_exists == 'true'
-        uses: snapcore/action-build@v1 
+        uses: snapcore/action-build@v1
         id: build
 
       - name: Release snap
         if: steps.build.outputs.snap
         uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
         with:
-          store_login: ${{ secrets.STORE_LOGIN }}
           snap: ${{ steps.build.outputs.snap }}
           release: stable
