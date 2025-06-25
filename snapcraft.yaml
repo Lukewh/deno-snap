@@ -1,0 +1,38 @@
+name: deno
+version: v2.3.6
+summary: Deno
+description: |
+  Deno
+
+base: core22
+grade: stable
+confinement: strict
+
+architectures:
+  - build-on: amd64
+    build-for: amd64
+  - build-on: armhf
+    build-for: armhf
+
+parts:
+  deno:
+    plugin: dump
+    build-packages:
+      - unzip
+      - curl
+    source: https://github.com/denoland/deno_install.git
+    override-build: |
+      export DENO_INSTALL=$SNAPCRAFT_PART_BUILD
+      ./install.sh
+      cp $SNAPCRAFT_PROJECT_DIR/wrapper.sh $SNAPCRAFT_PART_INSTALL/wrapper.sh
+      cp $SNAPCRAFT_PART_BUILD/bin/deno $SNAPCRAFT_PART_INSTALL/deno
+apps:
+  deno:
+    environment:
+      HOME: "$SNAP_REAL_HOME"
+      XDG_CACHE_HOME: "$SNAP_USER_DATA/.cache"
+    command: wrapper.sh
+    plugs:
+      - network
+      - network-bind
+      - home

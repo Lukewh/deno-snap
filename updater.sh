@@ -26,3 +26,5 @@ else
     echo "Nothing to update"
 fi
 
+echo "${latest_version}"
+
