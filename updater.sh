@@ -19,6 +19,7 @@ echo "Current version: ${current_version}"
 echo "Latest version: ${latest_version}"
 
 if [ "$current_version" != "$latest_version" ]; then
+    rm snapcraft.yaml
     echo "Update to $latest_version"
     sed 's/\$version/'${latest_version}'/g' "_snapcraft.yaml" > "snapcraft.yaml"
     echo "Updated"
