@@ -13,14 +13,17 @@ jobs:
           fetch-depth: 2
 
       - name: Update snapcraft.yaml
-        run: rm snapcraft.yaml && ./updater.sh
+        id: get_version
+        run: |
+          rm snapcraft.yaml
+          echo "version=$(./updater.sh)" >> "$GITHUB_OUTPUT"
 
       - name: Has updated
         id: has_run
-        run: git diff --name-only HEAD^1 HEAD
+        run: echo "changes=$(git diff --name-only HEAD^1 HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Push change
-        if: steps.has_run.outputs == 'snapcraft.yaml'
+        if: steps.has_run.outputs.changes == 'snapcraft.yaml'
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
