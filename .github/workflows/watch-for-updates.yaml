@@ -1,0 +1,26 @@
+name: Watch for Updates
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@vv
+        with:
+          fetch-depth: 2
+
+      - name: Update snapcraft.yaml
+        run: rm snapcraft.yaml && ./updater.sh
+
+      - name: Has updated
+        id: has_run
+        run: git diff --name-only HEAD^1 HEAD
+
+      - name: Push change
+        if: steps.has_run.outputs == 'snapcraft.yaml'
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
