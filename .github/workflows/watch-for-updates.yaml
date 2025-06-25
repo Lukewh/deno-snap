@@ -16,7 +16,7 @@ jobs:
         id: get_version
         run: |
           rm snapcraft.yaml
-          echo "version=$(./updater.sh)" >> "$GITHUB_OUTPUT"
+          echo "version=$(./updater.sh | tail -n 1)" >> "$GITHUB_OUTPUT"
 
       - name: Has updated
         id: has_run
